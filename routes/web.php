@@ -19,3 +19,7 @@ Route::get('/', function () {
 
 Route::get('/products/export', 'ProductController@export')->name('products.export');
 Route::post('/products/export', 'ProductController@import')->name('products.save');
+
+Route::get('/products/list', 'ProductController@list')->name('products.list');
+
+Route::get('/products/show/{product}', 'ProductController@show')->name('products.show');
