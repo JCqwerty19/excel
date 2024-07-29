@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use App\Repositories\Interfaces\ProductRepositoryInterface as ProductInterface;
+use App\Repositories\Implementators\Eloquent\ProductRepositoryImplementator;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->bind(ProductInterface::class,ProductRepositoryImplementator::class);
     }
 }

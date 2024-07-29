@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/products/export', 'ProductController@export')->name('products.export');
+Route::post('/products/export', 'ProductController@import')->name('products.save');
