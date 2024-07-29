@@ -24,7 +24,7 @@ This Laravel-based project provides functionality for managing products through 
 
 To set up this project locally, follow these steps:
 
-1. Clone the repository by running `git clone https://github.com/yourusername/your-repo-name.git` and then navigate into the project directory with `cd your-repo-name`.
+1. Clone the repository by running `git clone https://github.com/JCqwerty19/excel.git` and then navigate into the project directory with `cd your-repo-name`.
 
 2. Install PHP dependencies by executing `composer install`.
 
@@ -39,6 +39,14 @@ To set up this project locally, follow these steps:
    DB_DATABASE=your_database
    DB_USERNAME=your_username
    DB_PASSWORD=your_password
+
+5. Generate the application key by running `php artisan key:generate`.
+
+6. Create a symbolic link from public/storage to storage/app/public using `php artisan storage:link`. This will allow you to serve files stored in the storage directory.
+
+7. Run migrations to create the necessary database tables with `php artisan migrate`.
+
+8. Start the Laravel development server with php artisan serve. You can now access the application at http://localhost:8000.
 
 ---
 Best regards,
