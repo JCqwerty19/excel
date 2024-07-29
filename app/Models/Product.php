@@ -14,11 +14,13 @@ class Product extends Model
 
     protected $guarded = false;
 
+    // Get photos
     public function photos()
     {
         return $this->hasMany(Photo::class);
     }
 
+    // Get additional information
     public function additional()
     {
         return $this->hasMany(Additional::class);

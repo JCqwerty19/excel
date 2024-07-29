@@ -4,6 +4,10 @@
 Products
 @endsection
 
+@section('buttons')
+<a href="{{ route('products.export') }}" type="button" class="btn-success btn">Export</a>
+@endsection
+
 @section('content')
 <div class="row">
     @foreach($products as $product)

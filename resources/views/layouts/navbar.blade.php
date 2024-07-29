@@ -8,6 +8,11 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    <nav>
+        <div class="container mt-5">
+        @yield('buttons')
+        </div>
+    </nav>
     <div class="container mt-5">
         @yield('content')
     </div>

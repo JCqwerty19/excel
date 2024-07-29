@@ -13,6 +13,7 @@ class Photo extends Model
 
     protected $guarded = false;
 
+    // Get parent product
     public function product()
     {
         return $this->belongsTo(Product::class);

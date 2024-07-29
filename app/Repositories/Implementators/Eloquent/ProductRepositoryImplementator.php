@@ -15,49 +15,65 @@ use App\Models\Photo;
 
 class ProductRepositoryImplementator implements ProductInterface
 {
+    // Import function
     public function import(object $file)
     {
-        // save file
+        // Save file
         $savedFile = $this->saveFile($file);
 
-        // get path
+        // Get path
         $filePath = $this->getPath($savedFile);
 
-        // parse file
+        // Parse file
         $parsedFile = $this->parseFile($filePath);
 
-        // get rows
+        // Get rows
         $rows = $this->getRows($parsedFile);
 
+        // Save data in database
         foreach($rows as $key => $row) {
+
+            // Skip title
             if ($key === 0) continue;
+
+            // Collect main product data
             $productData = $this->collectProductData($row);
+
+            // Save prodcut in database
             $product = Product::create($productData);
 
+            // Collect additional product data
             $additionalData = $this->collectAdditionalInfo($row, $product->id);
+
+            // Save additional product data
             Additional::create($additionalData);
 
+            // Download and save photos
             $photoPath = $this->photo($row[37], $product->id);
         }
     }
 
     // ==========================================
 
+    // Save file
     private function saveFile(object $file): string
     {
         return $file->store('imports');
     }
 
+    // Get file path
     private function getPath(string $savedFile): string
     {
         return storage_path('app/' . $savedFile);
     }
 
+    // Parse file
     private function parseFile(string $filePath): object
     {
         return SimpleXLSX::parse($filePath);
     }
 
+    // Return rows
     private function getRows(object $parsedFile)
     {
         return $parsedFile->rows();
@@ -65,6 +81,7 @@ class ProductRepositoryImplementator implements ProductInterface
 
     // ==========================================
 
+    // Collect and return product main data in array
     private function collectProductData(array $row): array
     {
         return [
@@ -102,6 +119,7 @@ class ProductRepositoryImplementator implements ProductInterface
         ];
     }
 
+    // Collect and return product additional data in array
     private function collectAdditionalInfo(array $row, int $product_id)
     {
         return [
@@ -127,18 +145,30 @@ class ProductRepositoryImplementator implements ProductInterface
         ];
     }
 
+    // Download and save photos
     private function photo(string $links, int $product_id): void
     {
+        // Get all photos urls
         $urls = explode(', ', $links);
 
         foreach($urls as $url) {
+
+            // Download each photo
             $photo = $this->downloadPhoto($url);
+
+            // Get photo's extention thouth file type
             $extension = $this->getExtension($photo->header('Content-Type'));
 
+            // Generate name and path
             $path = $this->photoPath($extension);
+
+            // Save photo in storage
             $this->savePhoto($photo, $path);
             
+            // Collect data for photo
             $photoData = $this->collectPhotoData($product_id, $url, $path);
+
+            // Save photo's path in database
             Photo::create($photoData);
         }
     }

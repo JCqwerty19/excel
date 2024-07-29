@@ -9,6 +9,7 @@ use App\Services\ProductService;
 
 class BaseController extends Controller
 {
+    // Base controller construction
     public function __construct(
         public ProductService $productService,
     ) {
