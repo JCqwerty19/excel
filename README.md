@@ -46,9 +46,7 @@ To set up this project locally, follow these steps:
 
 7. Run migrations to create the necessary database tables with `php artisan migrate`.
 
-8.Launch server `php artisan serve`.
-
-9. Start the Laravel development server with php artisan serve. You can now access the application at http://localhost:8000.
+8. Start the Laravel development server with `php artisan serve`. You can now access the application at http://localhost:8000.
 
 ---
 Best regards,
